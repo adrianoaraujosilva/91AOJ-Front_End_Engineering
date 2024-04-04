@@ -19,6 +19,20 @@ const onSubmit = async () => {
   if (!password.value.length) {
     errors.value.password.push("Campo senha obrigatório!");
   }
+
+  if (errors.value.email.length >0 || errors.value.password.length > 0) {
+    return ;
+  }
+
+  await fetch("/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email: email.value, password: password }),
+  })
+    .then((response) => console.log("response:", response))
+    .catch((error) => console.error("error", error));
 };
 </script>
 
